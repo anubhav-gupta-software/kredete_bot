@@ -1,5 +1,6 @@
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
+from typing import Optional
 import json
 import hashlib
 
@@ -16,7 +17,7 @@ init_db()
 class RunRequest(BaseModel):
     goal: str
     idempotency_key: str
-    simulate_failure_at_step: int | None = None
+    simulate_failure_at_step: Optional[int] = None
 
 
 def compute_request_hash(payload: dict) -> str:
