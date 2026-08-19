@@ -12,7 +12,7 @@ class Action(enum.Enum):
 
 def decide_next_action(step_number, goal, last_output):
     # Deterministic policy for demo:
-    # steps 1-2 -> CALL_TOOL; step 3 -> FINISH; afterwards would be bounded by MAX_STEPS
+    # Default: steps 1-2 -> CALL_TOOL; step 3 -> FINISH
     if step_number <= 2:
         return Action.CALL_TOOL
     return Action.FINISH

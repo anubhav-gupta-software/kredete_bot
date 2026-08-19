@@ -1,14 +1,7 @@
 import json
 import sqlite3
 from app.db import get_connection
-from app.mocks import (
-    decide_next_action,
-    mock_web_search,
-    MODEL_ACTION_COST,
-    WEB_SEARCH_COST,
-    MAX_STEPS,
-    Action,
-)
+import app.mocks as mocks
 
 
 def _sum_credits(conn, run_id):
@@ -79,26 +72,26 @@ def run_executor(run_id):
         while True:
             # check current step count
             step_count = _get_step_count(conn, run_id)
-            if step_count >= MAX_STEPS:
+            if step_count >= mocks.MAX_STEPS:
                 _update_run(conn, run_id, "failed", None, "STEP_LIMIT_REACHED", "Max steps reached")
                 return
 
             next_step_number = step_count + 1
 
             # model action charge
-            charges = [("MODEL_ACTION", MODEL_ACTION_COST)]
+            charges = [("MODEL_ACTION", mocks.MODEL_ACTION_COST)]
 
-            action = decide_next_action(next_step_number, goal, last_output)
+            action = mocks.decide_next_action(next_step_number, goal, last_output)
 
-            if action == Action.CALL_TOOL:
+            if action == mocks.Action.CALL_TOOL:
                 # charge model action and tool attempt atomically with step row
-                charges.append(("WEB_SEARCH", WEB_SEARCH_COST))
+                charges.append(("WEB_SEARCH", mocks.WEB_SEARCH_COST))
                 _insert_step_and_charges(conn, run_id, next_step_number, action.value, "web_search", goal, charges)
 
                 # execute tool outside txn
                 try:
                     simulate = (simulate_failure_at_step == next_step_number)
-                    result = mock_web_search(goal, simulate_failure=simulate)
+                    result = mocks.mock_web_search(goal, simulate_failure=simulate)
                     _update_step(conn, run_id, next_step_number, "completed", output=result)
                     last_output = result
                     # continue loop

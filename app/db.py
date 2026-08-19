@@ -3,7 +3,8 @@ import sqlite3
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DB_PATH = str(BASE_DIR / "data.db")
+# Allow tests to override DB path via env var
+DB_PATH = os.environ.get("KREDETE_DB_PATH", str(BASE_DIR / "data.db"))
 
 
 def get_connection():
@@ -14,7 +15,8 @@ def get_connection():
 
 
 def init_db():
-    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+    db_parent = Path(DB_PATH).parent
+    db_parent.mkdir(parents=True, exist_ok=True)
     conn = get_connection()
     cur = conn.cursor()
     # enable WAL for better concurrency

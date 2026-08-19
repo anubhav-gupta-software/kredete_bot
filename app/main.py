@@ -9,6 +9,9 @@ from app.runner import run_executor
 
 app = FastAPI()
 
+# Ensure DB initialized at import time (helps tests using TestClient)
+init_db()
+
 
 class RunRequest(BaseModel):
     goal: str
