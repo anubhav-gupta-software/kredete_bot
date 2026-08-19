@@ -1,9 +1,9 @@
 async function startRun() {
   const goal = document.getElementById('goal').value
   const key = document.getElementById('key').value
-  const failVal = document.getElementById('fail').value
+  const failChecked = document.getElementById('fail').checked
   const payload = { goal, idempotency_key: key }
-  if (failVal) payload.simulate_failure_at_step = parseInt(failVal)
+  if (failChecked) payload.simulate_failure_at_step = 2
 
   const res = await fetch('/runs', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) })
   const data = await res.json()
