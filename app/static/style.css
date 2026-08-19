@@ -1,3 +1,26 @@
-body { font-family: Arial, sans-serif; margin: 20px }
-label { display: block; margin: 6px 0 }
-pre { background: #f6f8fa; padding: 12px }
+:root{
+	--bg:#f4f6f8;
+	--card:#ffffff;
+	--muted:#6b7280;
+	--accent:#0b69ff;
+	--success:#0b9d58;
+}
+html,body{height:100%}
+body{font-family: Inter, Arial, sans-serif; background:var(--bg); margin:0; display:flex; align-items:center; justify-content:center; padding:24px}
+.card{width:760px; max-width:96vw; background:var(--card); border-radius:8px; box-shadow:0 6px 20px rgba(12,18,28,0.08); padding:20px}
+h1{margin:0 0 12px 0; font-size:20px}
+.form-row{margin:12px 0}
+label{display:block; margin-bottom:6px; color:var(--muted); font-size:13px}
+input, textarea{width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px}
+textarea{min-height:88px; resize:vertical}
+button.primary{background:var(--accent); color:white; border:none; padding:10px 14px; border-radius:6px; cursor:pointer}
+button.primary:hover{filter:brightness(0.95)}
+.status-section{margin-top:18px; padding-top:8px; border-top:1px solid #eef2f7}
+#status{font-weight:600; margin-top:6px}
+.credits{margin-top:6px; color:var(--muted)}
+.steps-section{margin-top:14px}
+.steps-list{list-style:none; padding:0; margin:8px 0}
+.steps-list li{padding:8px 10px; border-left:3px solid #e5e7eb; background:#fbfdff; margin-bottom:8px; border-radius:4px}
+.output-section{margin-top:12px}
+.output-box{background:#0f1724; color:#e6eef8; padding:12px; border-radius:6px; min-height:64px; white-space:pre-wrap}
+pre{background:#f6f8fa; padding:12px}

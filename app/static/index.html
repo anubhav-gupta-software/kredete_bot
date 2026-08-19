@@ -6,15 +6,44 @@
     <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
-    <h1>Kredete - Run Demo</h1>
-    <label>Goal: <input id="goal" value="Write a short report" /></label>
-    <label>Idempotency Key: <input id="key" value="demo-key-1" /></label>
-    <label>Simulate failure at step: <input id="fail" type="number" min="1" max="5" /></label>
-    <button id="start">Start Run</button>
+    <div class="card">
+      <h1>Kredete - Run Demo</h1>
 
-    <div id="status"></div>
+      <div class="form-row">
+        <label for="goal">Goal</label>
+        <textarea id="goal">Write a short report</textarea>
+      </div>
 
-    <pre id="output"></pre>
+      <div class="form-row">
+        <label for="key">Idempotency Key</label>
+        <input id="key" value="demo-key-1" />
+      </div>
+
+      <div class="form-row">
+        <label for="fail">Simulate failure at step</label>
+        <input id="fail" type="number" min="1" max="5" />
+      </div>
+
+      <div class="form-row">
+        <button id="start" class="primary">Start Run</button>
+      </div>
+
+      <section class="status-section">
+        <h2>Run Status</h2>
+        <div id="status">Idle</div>
+        <div class="credits">Credits used: <span id="credits">0</span></div>
+      </section>
+
+      <section class="steps-section">
+        <h3>Steps</h3>
+        <ul id="steps" class="steps-list"></ul>
+      </section>
+
+      <section class="output-section">
+        <h3>Final Output / Error</h3>
+        <pre id="final_output" class="output-box"></pre>
+      </section>
+    </div>
 
     <script src="/static/app.js"></script>
   </body>
