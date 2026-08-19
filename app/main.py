@@ -1,4 +1,7 @@
 from fastapi import FastAPI, BackgroundTasks, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 from pydantic import BaseModel
 from typing import Optional
 import json
@@ -9,6 +12,10 @@ from app.runner import run_executor
 
 
 app = FastAPI()
+
+# Serve static files and make index available at /
+static_path = Path(__file__).resolve().parent / "static"
+app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
 
 # Ensure DB initialized at import time (helps tests using TestClient)
 init_db()
@@ -30,6 +37,11 @@ def compute_request_hash(payload: dict) -> str:
 @app.on_event("startup")
 def startup():
     init_db()
+
+
+@app.get("/")
+def root():
+    return FileResponse(static_path / "index.html")
 
 
 @app.post("/runs")
