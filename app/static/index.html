@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Kredete Demo</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <h1>Kredete - Run Demo</h1>
+    <label>Goal: <input id="goal" value="Write a short report" /></label>
+    <label>Idempotency Key: <input id="key" value="demo-key-1" /></label>
+    <label>Simulate failure at step: <input id="fail" type="number" min="1" max="5" /></label>
+    <button id="start">Start Run</button>
+
+    <div id="status"></div>
+
+    <pre id="output"></pre>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
